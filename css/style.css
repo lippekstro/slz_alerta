@@ -1,0 +1,35 @@
+main {
+    background-color: #112752;
+    min-height: 100vh;
+}
+
+.hero {
+    background-image: url("../imgs/slz.webp");
+    background-position: center center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.bg-prim {
+    background-color: #112752;
+    color: #a5b9ce;
+}
+
+.bg-prim * {
+    color: #a5b9ce;
+}
+
+.bg-prim button {
+    background-color: #a5b9ce;
+}
+
+.justify-text {
+    text-align: justify !important;
+}
+
+
+@media only screen and (width >= 992px){
+.hero {
+    height: 75vh;
+}
+}
