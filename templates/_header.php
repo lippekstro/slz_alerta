@@ -8,10 +8,10 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
     
-    <link rel="stylesheet" href="/projeto/css/bootstrap.css">
-    <script src="/projeto/js/bootstrap.bundle.js" defer></script>
+    <link rel="stylesheet" href="/slz_alerta/css/bootstrap.css">
+    <script src="/slz_alerta/js/bootstrap.bundle.js" defer></script>
 
-    <link rel="stylesheet" href="/projeto/css/style.css">
+    <link rel="stylesheet" href="/slz_alerta/css/style.css">
 </head>
 
 <body>
@@ -26,27 +26,27 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-between w-100">
                         <div class="d-flex flex-column flex-lg-row mb-1 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-center" href="/projeto/index.php">
+                                <a class="nav-link d-flex align-center" href="/slz_alerta/index.php">
                                     <span class="material-symbols-outlined">home</span>
                                     Inicio
                                 </a>
                             </li>
                             <li class="nav-item mb-1">
-                                <a class="nav-link" href="/projeto/views/cadastro_usuario.php">Cadastre-se</a>
+                                <a class="nav-link" href="/slz_alerta/views/cadastro_usuario.php">Cadastre-se</a>
                             </li>
                             <li class="nav-item mb-1">
-                                <a class="nav-link" href="#">Denunciar</a>
+                                <a class="nav-link" href="/slz_alerta/views/cadastro_denuncia.php">Denunciar</a>
                             </li>
                             <li class="nav-item mb-1">
-                                <a class="nav-link" href="#">Historico</a>
+                                <a class="nav-link" href="/slz_alerta/views/denuncias.php">Historico</a>
                             </li>
                             <li class="nav-item mb-1">
-                                <a class="nav-link" href="/projeto/views/sobre.php">Sobre</a>
+                                <a class="nav-link" href="/slz_alerta/views/sobre.php">Sobre</a>
                             </li>
                         </div>
                         <div class="d-flex">
                             <li class="nav-item">
-                                <a class="btn btn-outline-primary d-flex align-center" href="#">
+                                <a class="btn btn-outline-primary d-flex align-center" href="/slz_alerta/views/login.php">
                                     <span class="material-symbols-outlined">person</span>
                                     Entrar
                                 </a>

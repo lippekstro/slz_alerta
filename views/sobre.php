@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/projeto/templates/_header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
 ?>
 
 <section class="hero p-2 p-lg-5">
@@ -16,5 +16,5 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/projeto/templates/_header.php';
 </section>
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/projeto/templates/_footer.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_footer.php';
 ?>

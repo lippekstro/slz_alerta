@@ -1,34 +1,42 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/projeto/templates/_header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
 ?>
 
-<section class="hero d-flex">
-    <div class="bg-prim opacity-75 d-flex">
+<section class="align-items-center d-flex hero justify-content-center">
+    <div class="bg-prim opacity-75 d-flex p-5">
         <form class="">
-            <img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <div class="mb-3 text-center">
+                <a class="h3 mb-3 fw-normal text-decoration-none" href="/slz_alerta/views/login.php">Login</a>
+                <span class="h3 mb-3 fw-normal">/</span>
+                <a class="h3 mb-3 fw-normal text-decoration-none" href="/slz_alerta/views/cadastro_usuario.php">Cadastrar</a>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingNome" placeholder="name@exemplo.com">
+                <label for="floatingNome">Nome</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingEmail" placeholder="name@exemplo.com">
+                <label for="floatingEmail">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="tel" class="form-control" id="floatingTel" placeholder="name@exemplo.com">
+                <label for="floatingTel">Telefone</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingCpf" placeholder="name@exemplo.com">
+                <label for="floatingCpf">CPF</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="senha" class="form-control" id="floatingSenha" placeholder="Senha">
+                <label for="floatingSenha">Senha</label>
+            </div>
 
-            <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
-            </div>
-
-            <div class="form-check text-start my-3">
-                <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault">
-                <label class="form-check-label" for="checkDefault">
-                    Remember me
-                </label>
-            </div>
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-            <p class="mt-5 mb-3 text-body-secondary">© 2017–2025</p>
+            <button class="btn btn-primary w-100 py-2" type="submit">Cadastrar</button>
         </form>
     </div>
 </section>
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/projeto/templates/_footer.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_footer.php';
 ?>
