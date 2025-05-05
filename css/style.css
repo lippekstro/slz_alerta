@@ -19,17 +19,28 @@ main {
     color: #a5b9ce;
 }
 
-.bg-prim button {
-    background-color: #a5b9ce;
-}
-
 .justify-text {
     text-align: justify !important;
 }
 
-
-@media only screen and (width >= 992px){
-.hero {
-    height: 75vh;
+.card-container {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(1, 1fr);
 }
+
+.card-container div {
+    align-self: center;
+    justify-self: center;
+}
+
+
+@media only screen and (width >=992px) {
+    .hero {
+        height: 75vh;
+    }
+
+    .card-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }

@@ -19,13 +19,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
                 <input type="password" class="form-control" id="floatingSenha" placeholder="Senha">
                 <label for="floatingSenha">Senha</label>
             </div>
-
-            <div class="form-check text-start my-3">
-                <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault">
-                <label class="form-check-label" for="checkDefault">
-                    Remember me
-                </label>
-            </div>
+            
             <button class="btn btn-primary w-100 py-2" type="submit">Entrar</button>
         </form>
     </div>
