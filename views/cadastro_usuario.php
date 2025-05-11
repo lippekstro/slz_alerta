@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
 
 <section class="align-items-center d-flex hero justify-content-center">
     <div class="bg-prim opacity-75 d-flex p-5">
-        <form class="">
+        <form method="POST" action="/slz_alerta/controllers/usuario_add_controller.php" autocomplete="off">
             <div class="mb-3 text-center">
                 <a class="h3 mb-3 fw-normal text-decoration-none" href="/slz_alerta/views/login.php">Login</a>
                 <span class="h3 mb-3 fw-normal">/</span>
@@ -12,23 +12,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
             </div>
             
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingNome" placeholder="name@exemplo.com">
+                <input type="text" class="form-control" id="floatingNome" placeholder="name@exemplo.com" name="nome" required>
                 <label for="floatingNome">Nome</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingEmail" placeholder="name@exemplo.com">
+                <input type="email" class="form-control" id="floatingEmail" placeholder="name@exemplo.com" name="email" required>
                 <label for="floatingEmail">Email</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="tel" class="form-control" id="floatingTel" placeholder="name@exemplo.com">
+                <input type="tel" class="form-control" id="floatingTel" placeholder="name@exemplo.com" name="telefone" required>
                 <label for="floatingTel">Telefone</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingCpf" placeholder="name@exemplo.com">
+                <input type="text" class="form-control" id="floatingCpf" placeholder="name@exemplo.com" name="cpf" required>
                 <label for="floatingCpf">CPF</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="senha" class="form-control" id="floatingSenha" placeholder="Senha">
+                <input type="password" class="form-control" id="floatingSenha" placeholder="Senha" name="senha" required>
                 <label for="floatingSenha">Senha</label>
             </div>
 

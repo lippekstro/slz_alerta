@@ -10,11 +10,12 @@ class Usuario
     private $senha;
     private $tipo_usuario;
     private $cpf;
-    private $foto_usuario;
+    //private $foto_usuario;
 
     // SQL Queries
     private const SELECT_BY_ID = 'SELECT * FROM usuarios WHERE id_usuario = :id';
-    private const INSERT_USER = 'INSERT INTO usuarios (nome, email, telefone, senha, cpf, foto_usuario) VALUES (:nome, :email, :telefone, :senha, :cpf, :foto)';
+    //private const INSERT_USER = 'INSERT INTO usuarios (nome, email, telefone, senha, cpf, foto_usuario) VALUES (:nome, :email, :telefone, :senha, :cpf, :foto)';
+    private const INSERT_USER = 'INSERT INTO usuarios (nome, email, telefone, senha, cpf) VALUES (:nome, :email, :telefone, :senha, :cpf)';
     private const SELECT_ALL = 'SELECT * FROM usuarios';
     private const UPDATE_USER = 'UPDATE usuarios SET nome_usuario = :nome, email = :email, telefone = :telefone, foto_usuario = :foto WHERE id_usuario = :id';
     private const UPDATE_PASSWORD = 'UPDATE usuarios SET senha = :senha WHERE id_usuario = :id';
@@ -88,15 +89,15 @@ class Usuario
         $this->cpf = $cpf;
     }
 
-    public function getFotoUsuario()
-    {
-        return $this->foto_usuario;
-    }
+    // public function getFotoUsuario()
+    // {
+    //     return $this->foto_usuario;
+    // }
 
-    public function setFotoUsuario($foto_usuario)
-    {
-        $this->foto_usuario = $foto_usuario;
-    }
+    // public function setFotoUsuario($foto_usuario)
+    // {
+    //     $this->foto_usuario = $foto_usuario;
+    // }
 
     private function carregar()
     {
@@ -114,11 +115,12 @@ class Usuario
                 $this->tipo_usuario = $resultado['tipo_usuario'];
                 $this->cpf = $resultado['cpf'];
                 $this->email = $resultado['email'];
-                $this->foto_usuario = $resultado['foto_usuario'];
+                //$this->foto_usuario = $resultado['foto_usuario'];
             }
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao carregar usuário: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -132,12 +134,13 @@ class Usuario
             $stmt->bindValue(':telefone', $this->telefone);
             $stmt->bindValue(':cpf', $this->cpf);
             $stmt->bindValue(':senha', $this->senha);
-            $stmt->bindValue(':foto', $this->foto_usuario);
+            //$stmt->bindValue(':foto', $this->foto_usuario);
             $stmt->execute();
             $this->id_usuario = $conexao->lastInsertId();
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao criar usuário: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -151,6 +154,7 @@ class Usuario
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao listar usuários: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -162,12 +166,13 @@ class Usuario
             $stmt->bindValue(':nome', $this->nome);
             $stmt->bindValue(':email', $this->email);
             $stmt->bindValue(':telefone', $this->telefone);
-            $stmt->bindValue(':foto', $this->foto_usuario);
+            //$stmt->bindValue(':foto', $this->foto_usuario);
             $stmt->bindValue(':id', $this->id_usuario);
             $stmt->execute();
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao atualizar usuário: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -182,6 +187,7 @@ class Usuario
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao atualizar senha: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -195,6 +201,7 @@ class Usuario
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao deletar usuário: ' . $e->getMessage();
+            exit();
         }
     }
 }

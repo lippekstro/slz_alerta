@@ -1,3 +1,11 @@
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/auth/auth.php';
+// echo "<pre>";
+// var_dump($_SESSION);
+// echo "</pre>";
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -45,12 +53,21 @@
                             </li>
                         </div>
                         <div class="d-flex">
-                            <li class="nav-item">
-                                <a class="btn btn-outline-primary d-flex align-center" href="/slz_alerta/views/login.php">
-                                    <span class="material-symbols-outlined">person</span>
-                                    Entrar
-                                </a>
-                            </li>
+                            <?php if(!Auth::estaAutenticado()): ?>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-primary d-flex align-center" href="/slz_alerta/views/login.php">
+                                        <span class="material-symbols-outlined">person</span>
+                                        Entrar
+                                    </a>
+                                </li>
+                            <?php else: ?>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-primary d-flex align-center" href="/slz_alerta/controllers/logout_controller.php">
+                                        <span class="material-symbols-outlined">logout</span>
+                                        Sair
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                         </div>
                     </ul>
                 </div>
@@ -59,3 +76,6 @@
     </header>
 
     <main>
+        <?php
+            require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_alertas.php';
+        ?>
