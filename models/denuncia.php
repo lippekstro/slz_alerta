@@ -14,10 +14,13 @@ class Denuncia
 
     // SQL Queries
     private const SELECT_BY_ID = 'SELECT * FROM denuncias WHERE id_denuncia = :id';
+    private const SELECT_USER_E_DENUNCIA_BY_ID = 'SELECT u.nome, d.* FROM usuarios u JOIN denuncias d ON d.id_usuario = u.id_usuario WHERE id_denuncia = :id';
     private const INSERT_DENUNCIA = 'INSERT INTO denuncias (titulo, descricao, local_denuncia, arquivo, id_usuario) VALUES (:titulo, :descricao, :local_denuncia, :arquivo, :id_usuario)';
     private const SELECT_ALL = 'SELECT * FROM denuncias';
     private const UPDATE_DENUNCIA = 'UPDATE denuncias SET titulo = :titulo, descricao = :descricao, local_denuncia = :local_denuncia, arquivo = :arquivo WHERE id_denuncia = :id';
     private const DELETE_DENUNCIA = 'DELETE FROM denuncias WHERE id_denuncia = :id';
+
+    private const SELECT_BY_TITULO = 'SELECT * FROM denuncias WHERE titulo LIKE :termo';
 
     public function __construct($id = false)
     {
@@ -118,6 +121,7 @@ class Denuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao carregar denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -136,6 +140,7 @@ class Denuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao criar denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -149,6 +154,35 @@ class Denuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao listar denúncias: ' . $e->getMessage();
+            exit();
+        }
+    }
+
+    public static function listarPorId($id){
+        try {
+            $conexao = Conexao::criaConexao();
+            $stmt = $conexao->prepare(self::SELECT_USER_E_DENUNCIA_BY_ID);
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (PDOException $e) {
+            // Tratamento de exceções
+            echo 'Erro ao listar denúncias: ' . $e->getMessage();
+            exit();
+        }
+    }
+
+    public static function listarPorTermo($termo){
+        try {
+            $conexao = Conexao::criaConexao();
+            $stmt = $conexao->prepare(self::SELECT_BY_TITULO);
+            $stmt->bindValue(':termo', '%' . $termo . '%');
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            // Tratamento de exceções
+            echo 'Erro ao listar denúncias: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -166,6 +200,7 @@ class Denuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao atualizar denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -179,6 +214,7 @@ class Denuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao deletar denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 }

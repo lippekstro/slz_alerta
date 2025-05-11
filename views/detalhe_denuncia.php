@@ -1,5 +1,8 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/denuncia.php';
+
+$denuncia = Denuncia::listarPorId($_GET['id']);
 ?>
 
 <section class="d-flex flex-column p-5">
@@ -24,33 +27,31 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
     </div>
 
     <div class="text-white">
-        <h1 class="mb-3">Titulo</h1>
+        <h1 class="mb-3"><?= $denuncia['titulo']; ?></h1>
         
-        <p class="btn btn-primary mb-3">Status</p>
+        <p class="btn btn-primary mb-3"><?= $denuncia['status_denuncia']; ?></p>
         
         <p class="d-flex align-center mb-3">
             <span class="material-symbols-outlined me-3">location_on</span> 
-            Local
+            <?= $denuncia['local_denuncia']; ?>
         </p>
         
         <p class="d-flex align-center mb-3">
             <span class="material-symbols-outlined me-3">calendar_month</span>
-            Data Registro
+            <?= $denuncia['data_denuncia']; ?>
         </p>
         
         <div class="d-flex align-items-center mb-3">
-            <img class="imagem-redonda me-3" src="https://picsum.photos/100/100?random=1">
-            <p>Usuario</p>
+            <img class="imagem-redonda me-3" src="/slz_alerta/imgs/dummy_usuario.png" width="100px" height="100px">
+            <p><?= $denuncia['nome']; ?></p>
         </div>
         
         <h4>Descrição do Problema</h2>
-        <p class="justify-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda cumque, enim modi deleniti eveniet itaque facilis! Nulla fugit vero voluptatem neque, molestiae quo quasi blanditiis id nisi? Sit, ipsum impedit?</p>
+        <p class="justify-text"><?= $denuncia['descricao']; ?></p>
         
         <h4>Imagens</h3>
         <div class="card-container">
-            <img class="card-img-top" src="https://picsum.photos/500/500?random=1">
-            <img class="card-img-top" src="https://picsum.photos/500/500?random=1">
-            <img class="card-img-top" src="https://picsum.photos/500/500?random=1">
+            <img class="card-img-top preencher-imagem" src="/slz_alerta/<?= $denuncia['arquivo']; ?>" width="500px" height="500px">
         </div>
     </div>
 

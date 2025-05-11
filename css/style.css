@@ -38,6 +38,9 @@ main {
     border-radius: 50%;
 }
 
+.preencher-imagem {
+    object-fit: fill;
+}
 
 @media only screen and (width >=992px) {
     .hero {

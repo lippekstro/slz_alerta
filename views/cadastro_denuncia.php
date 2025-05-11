@@ -1,5 +1,13 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/tipo_denuncia.php';
+
+if(!isset($_SESSION['id_usuario'])){
+    $_SESSION['aviso'] = "Você deve estar logado para criar uma denúncia";
+    header('Location: /slz_alerta/views/login.php');
+}
+
+$lista = TipoDenuncia::listar();
 ?>
 
 <section class="p-5">
@@ -10,38 +18,39 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
 
     <div class="text-white mb-3">
         <h2>Informações Básicas</h2>
-        <form action="">
+        <form method="POST" action="/slz_alerta/controllers/denuncia_add_controller.php" autocomplete="off" enctype="multipart/form-data">
             <div class="row">
                 <div class="mb-1">
                     <label for="titulo" class="form-label">Título<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="titulo" placeholder="Ex: Buraco em Via Pública" required>
+                    <input type="text" class="form-control" id="titulo" placeholder="Ex: Buraco em Via Pública" name="titulo" required>
                 </div>
                 <div class="mb-1">
                     <label for="descricao" class="form-label">Descrição Detalhada<span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="descricao" rows="3" required></textarea>
+                    <textarea class="form-control" id="descricao" rows="3" name="descricao" required></textarea>
                 </div>
                 <div class="mb-1">
                     <label for="categoria" class="form-label">Categoria<span class="text-danger">*</span></label>
-                    <select class="form-select" id="categoria" required>
-                        <option value="">Selecione...</option>
-                        <option>Teste</option>
+                    <select class="form-select" id="categoria" name="categoria" required>
+                        <?php foreach ($lista as $c) : ?>
+                            <option value="<?= $c['id_tipo_denuncia'] ?>"><?= $c['nome'] ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="mb-1 col-lg-8">
                     <label for="endereco" class="form-label">Endereço<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="endereco" placeholder="Ex: Rua das Flores, 123" required>
+                    <input type="text" class="form-control" id="endereco" placeholder="Ex: Rua das Flores, 123" name="endereco" required>
                 </div>
                 <div class="mb-1 col-lg-4">
                     <label for="bairro" class="form-label">Bairro<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="bairro" placeholder="Ex: Centro" required>
+                    <input type="text" class="form-control" id="bairro" placeholder="Ex: Centro" name="bairro" required>
                 </div>
                 <div class="mb-1">
                     <label for="referencia" class="form-label">Ponto de Referência<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="referencia" placeholder="Ex: Próximo ao supermercado X" required>
+                    <input type="text" class="form-control" id="referencia" placeholder="Ex: Próximo ao supermercado X" name="referencia" required>
                 </div>
                 <div class="mb-1">
                     <label for="imagens" class="form-label">Imagens</label>
-                    <input class="form-control" type="file" id="imagens" multiple>
+                    <input class="form-control" type="file" id="imagens" name="imagens" multiple>
                     <span class="fs-6 fst-italic">Adicione até 3 imagens que mostrem claramente o problema. Tamanho máximo 5MB por imagem.</span>
                 </div>
                 <div class="mb-5">

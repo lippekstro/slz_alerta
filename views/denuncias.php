@@ -1,5 +1,13 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/denuncia.php';
+
+if(isset($_GET['busca'])){
+    $lista = Denuncia::listarPorTermo($_GET['busca']);
+} else {
+    $lista = Denuncia::listar();
+}
+
 ?>
 
 <section class="d-flex flex-column p-5">
@@ -16,27 +24,33 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
     </div>
 
     <div class="mb-5">
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Buscar Denúncias" aria-label="Search">
+        <form class="d-flex" role="search" method="GET" action="<?= $_SERVER["PHP_SELF"]; ?>" autocomplete="off">
+            <input class="form-control me-2" type="search" placeholder="Buscar Denúncias" aria-label="Search" name="busca">
             <button class="btn btn-outline-success d-flex align-center text-white" type="submit">
                 <span class="material-symbols-outlined">search</span>
             </button>
         </form>
     </div>
 
-    <div class="card-container">
-        <?php for($i = 0; $i < 4; $i++): ?>
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="https://picsum.photos/200/100?random=1">
-                <a href="/slz_alerta/views/detalhe_denuncia.php" class="text-decoration-none text-black">
-                    <div class="card-body">
-                        <h5 class="card-title">Titulo</h5>
-                        <p class="card-text justify-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eius. Quis soluta deserunt similique ipsa atque, labore eius ullam quisquam eos alias tempore eveniet expedita! Harum saepe eligendi animi recusandae?</p>
-                    </div>
-                </a>
-            </div>
-        <?php endfor; ?>
-    </div>
+    <?php if(count($lista) > 0): ?>
+        <div class="card-container">
+            <?php foreach($lista as $d): ?>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top preencher-imagem" src="/slz_alerta/<?= $d['arquivo']; ?>" width="200px" height="200px">
+                    <a href="/slz_alerta/views/detalhe_denuncia.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $d['titulo']; ?></h5>
+                            <p class="card-text justify-text"><?= $d['descricao']; ?></p>
+                        </div>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <section class="text-white">
+            <p>Nenhuma Denúncia Encontrada</p>
+        </section>
+    <?php endif; ?>
 </section>
 
 <?php
