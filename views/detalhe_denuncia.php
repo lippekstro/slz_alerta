@@ -42,8 +42,13 @@ $denuncia = Denuncia::listarPorId($_GET['id']);
         </p>
         
         <div class="d-flex align-items-center mb-3">
-            <img class="imagem-redonda me-3" src="/slz_alerta/imgs/dummy_usuario.png" width="100px" height="100px">
-            <p><?= $denuncia['nome']; ?></p>
+            <?php if($denuncia['anonima'] == 1): ?>
+                <img class="imagem-redonda me-3" src="/slz_alerta/imgs/dummy_usuario.png" width="100px" height="100px">
+                <p>Denuncia Anonima</p>
+            <?php else: ?>
+                <img class="imagem-redonda me-3" src="/slz_alerta/<?= $denuncia['foto']; ?>" width="100px" height="100px">
+                <p><?= $denuncia['nome']; ?></p>
+            <?php endif; ?>
         </div>
         
         <h4>Descrição do Problema</h2>

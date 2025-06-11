@@ -54,8 +54,8 @@ $lista = TipoDenuncia::listar();
                     <span class="fs-6 fst-italic">Adicione até 3 imagens que mostrem claramente o problema. Tamanho máximo 5MB por imagem.</span>
                 </div>
                 <div class="mb-5">
-                    <input type="checkbox" class="form-check-input" id="same-address">
-                    <label class="form-check-label" for="same-address">Concordo com os termos e condições<span class="text-danger">*</span></label>
+                    <input type="checkbox" class="form-check-input" id="same-address" name="anonima" value="1">
+                    <label class="form-check-label" for="same-address">Denuncia Anonima<span class="text-danger">*</span></label>
                 </div>
                 <div class="row justify-content-end">
                     <div class="mb-3 col-lg-2">

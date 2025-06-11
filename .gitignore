@@ -1,4 +1,4 @@
 #ignorar o arquivo de configuracoes sensiveis
 /configs/config.php
-
+/uploads/*
 #obs: se o arquivo ja foi enviado ao git antes do gitignore isso nao funciona

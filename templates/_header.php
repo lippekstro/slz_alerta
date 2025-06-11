@@ -39,9 +39,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/auth/auth.php';
                                     Inicio
                                 </a>
                             </li>
-                            <li class="nav-item mb-1">
-                                <a class="nav-link" href="/slz_alerta/views/cadastro_usuario.php">Cadastre-se</a>
-                            </li>
+                            <?php if(!Auth::estaAutenticado()): ?>
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link" href="/slz_alerta/views/cadastro_usuario.php">Cadastre-se</a>
+                                </li>
+                            <?php endif; ?>
                             <li class="nav-item mb-1">
                                 <a class="nav-link" href="/slz_alerta/views/cadastro_denuncia.php">Denunciar</a>
                             </li>

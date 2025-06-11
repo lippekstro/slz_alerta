@@ -9,15 +9,15 @@ class Denuncia
     private $data_denuncia;
     private $status_denuncia;
     private $local_denuncia;
-    private $arquivo;
+    private $anonima;
     private $id_usuario;
 
     // SQL Queries
     private const SELECT_BY_ID = 'SELECT * FROM denuncias WHERE id_denuncia = :id';
     private const SELECT_USER_E_DENUNCIA_BY_ID = 'SELECT u.nome, d.* FROM usuarios u JOIN denuncias d ON d.id_usuario = u.id_usuario WHERE id_denuncia = :id';
-    private const INSERT_DENUNCIA = 'INSERT INTO denuncias (titulo, descricao, local_denuncia, arquivo, id_usuario) VALUES (:titulo, :descricao, :local_denuncia, :arquivo, :id_usuario)';
+    private const INSERT_DENUNCIA = 'INSERT INTO denuncias (titulo, descricao, local_denuncia, anonima, id_usuario) VALUES (:titulo, :descricao, :local_denuncia, :anonima, :id_usuario)';
     private const SELECT_ALL = 'SELECT * FROM denuncias';
-    private const UPDATE_DENUNCIA = 'UPDATE denuncias SET titulo = :titulo, descricao = :descricao, local_denuncia = :local_denuncia, arquivo = :arquivo WHERE id_denuncia = :id';
+    private const UPDATE_DENUNCIA = 'UPDATE denuncias SET titulo = :titulo, descricao = :descricao, local_denuncia = :local_denuncia, anonima = :anonima WHERE id_denuncia = :id';
     private const DELETE_DENUNCIA = 'DELETE FROM denuncias WHERE id_denuncia = :id';
 
     private const SELECT_BY_TITULO = 'SELECT * FROM denuncias WHERE titulo LIKE :termo';
@@ -80,14 +80,14 @@ class Denuncia
         $this->local_denuncia = $local_denuncia;
     }
 
-    public function getArquivo()
+    public function getAnonima()
     {
-        return $this->arquivo;
+        return $this->anonima;
     }
 
-    public function setArquivo($arquivo)
+    public function setAnonima($anonima)
     {
-        $this->arquivo = $arquivo;
+        $this->anonima = $anonima;
     }
 
     public function getIdUsuario()
@@ -115,7 +115,7 @@ class Denuncia
                 $this->data_denuncia = $resultado['data_denuncia'];
                 $this->status_denuncia = $resultado['status_denuncia'];
                 $this->local_denuncia = $resultado['local_denuncia'];
-                $this->arquivo = $resultado['arquivo'];
+                $this->anonima = $resultado['anonima'];
                 $this->id_usuario = $resultado['id_usuario'];
             }
         } catch (PDOException $e) {
@@ -133,7 +133,7 @@ class Denuncia
             $stmt->bindValue(':titulo', $this->titulo);
             $stmt->bindValue(':descricao', $this->descricao);
             $stmt->bindValue(':local_denuncia', $this->local_denuncia);
-            $stmt->bindValue(':arquivo', $this->arquivo);
+            $stmt->bindValue(':anonima', $this->anonima);
             $stmt->bindValue(':id_usuario', $this->id_usuario);
             $stmt->execute();
             $this->id_denuncia = $conexao->lastInsertId();
@@ -194,7 +194,7 @@ class Denuncia
             $stmt->bindValue(':titulo', $this->titulo);
             $stmt->bindValue(':descricao', $this->descricao);
             $stmt->bindValue(':local_denuncia', $this->local_denuncia);
-            $stmt->bindValue(':arquivo', $this->arquivo);
+            $stmt->bindValue(':anonima', $this->anonima);
             $stmt->bindValue(':id', $this->id_denuncia);
             $stmt->execute();
         } catch (PDOException $e) {

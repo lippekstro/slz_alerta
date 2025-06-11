@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $endereco = htmlspecialchars($_POST['endereco']);
     $bairro = htmlspecialchars($_POST['bairro']);
     $referencia = htmlspecialchars($_POST['referencia']);
+    $anonima = $_POST['anonima'];
 
     $caminhoImagem = null;
 
@@ -43,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novaDenuncia->setTitulo($titulo);
     $novaDenuncia->setDescricao($descricao);
     $novaDenuncia->setLocalDenuncia("$endereco ($referencia), $bairro");
-    $novaDenuncia->setArquivo($caminhoImagem); // salva só a string
+    $novaDenuncia->setAnonima($anonima);
     $novaDenuncia->setIdUsuario($_SESSION['id_usuario']);
     
     // Chamar o método para criar o usuário
@@ -58,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novaAssociacao->criar();
     
     // Redirecionar para login
+    $_SESSION['aviso'] = "Denúncia cadastrada";
     header('Location: /slz_alerta/index.php');
     exit();
 }
