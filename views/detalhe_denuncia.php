@@ -3,6 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/denuncia.php';
 
 $denuncia = Denuncia::listarPorId($_GET['id']);
+
 ?>
 
 <section class="d-flex flex-column p-5">
@@ -46,7 +47,7 @@ $denuncia = Denuncia::listarPorId($_GET['id']);
                 <img class="imagem-redonda me-3" src="/slz_alerta/imgs/dummy_usuario.png" width="100px" height="100px">
                 <p>Denuncia Anonima</p>
             <?php else: ?>
-                <img class="imagem-redonda me-3" src="/slz_alerta/<?= $denuncia['foto']; ?>" width="100px" height="100px">
+                <img class="imagem-redonda me-3" src="<?= $denuncia['foto']; ?>" width="100px" height="100px">
                 <p><?= $denuncia['nome']; ?></p>
             <?php endif; ?>
         </div>

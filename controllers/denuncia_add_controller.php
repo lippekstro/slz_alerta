@@ -1,6 +1,8 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/denuncia.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/denuncia_tipo.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/imagens_denuncia.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/configs/utils.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,32 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $referencia = htmlspecialchars($_POST['referencia']);
     $anonima = $_POST['anonima'];
 
-    $caminhoImagem = null;
-
-
-    if (!empty($_FILES['imagens']['tmp_name'])) {
-        // Define o diretório onde as imagens serão armazenadas
-        $diretorio = $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/uploads/';
-
-        // Cria o diretório se não existir
-        if (!is_dir($diretorio)) {
-            mkdir($diretorio, 0755, true);
-        }
-
-        // Gera um nome único para o arquivo
-        $nomeArquivo = uniqid('img_') . '.' . pathinfo($_FILES['imagens']['name'], PATHINFO_EXTENSION);
-
-        // Caminho completo no servidor
-        $caminhoCompleto = $diretorio . $nomeArquivo;
-
-        // Caminho que será salvo no banco
-        $caminhoImagem = 'uploads/' . $nomeArquivo;
-
-        // Move o arquivo enviado para o diretório
-        move_uploaded_file($_FILES['imagens']['tmp_name'], $caminhoCompleto);
-    }
-
-
     // Criar uma instância de Usuario
     $novaDenuncia = new Denuncia();
     $novaDenuncia->setTitulo($titulo);
@@ -46,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novaDenuncia->setLocalDenuncia("$endereco ($referencia), $bairro");
     $novaDenuncia->setAnonima($anonima);
     $novaDenuncia->setIdUsuario($_SESSION['id_usuario']);
-    
+
     // Chamar o método para criar o usuário
     $novaDenuncia->criar();
 
@@ -57,7 +33,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novaAssociacao->setTipoDenuncia($categoria);
 
     $novaAssociacao->criar();
-    
+
+
+    if (!empty($_FILES['imagens']['name'][0])) {
+        // Itera sobre cada imagem enviada
+        foreach ($_FILES['imagens']['tmp_name'] as $index => $tmpName) {
+            // Ignora arquivos com erro
+            if ($_FILES['imagens']['error'][$index] !== UPLOAD_ERR_OK) {
+                continue;
+            }
+
+            // Temporariamente reorganiza os dados para passar para o método
+            $_FILES['imagem'] = [
+                'name'     => $_FILES['imagens']['name'][$index],
+                'type'     => $_FILES['imagens']['type'][$index],
+                'tmp_name' => $_FILES['imagens']['tmp_name'][$index],
+                'error'    => $_FILES['imagens']['error'][$index],
+                'size'     => $_FILES['imagens']['size'][$index],
+            ];
+
+            // Salva a imagem
+            $caminhoImagem = Utils::salvarImagemUsuario('imagem');
+
+            // Cria e associa a imagem à denúncia
+            $novaImagem = new ImagensDenuncia();
+            $novaImagem->setDenuncia($novaDenuncia->getId());
+            $novaImagem->setImagem($caminhoImagem);
+
+            // Aqui você pode salvar no banco se necessário, ex:
+            $novaImagem->criar();
+        }
+
+        // Opcional: remover o arquivo temporário reatribuído para evitar confusão
+        unset($_FILES['imagem']);
+    }
+
+
+
     // Redirecionar para login
     $_SESSION['aviso'] = "Denúncia cadastrada";
     header('Location: /slz_alerta/index.php');

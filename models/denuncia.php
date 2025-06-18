@@ -14,7 +14,7 @@ class Denuncia
 
     // SQL Queries
     private const SELECT_BY_ID = 'SELECT * FROM denuncias WHERE id_denuncia = :id';
-    private const SELECT_USER_E_DENUNCIA_BY_ID = 'SELECT u.nome, d.* FROM usuarios u JOIN denuncias d ON d.id_usuario = u.id_usuario WHERE id_denuncia = :id';
+    private const SELECT_USER_E_DENUNCIA_BY_ID = 'SELECT u.nome, u.foto, d.* FROM usuarios u JOIN denuncias d ON d.id_usuario = u.id_usuario WHERE id_denuncia = :id';
     private const INSERT_DENUNCIA = 'INSERT INTO denuncias (titulo, descricao, local_denuncia, anonima, id_usuario) VALUES (:titulo, :descricao, :local_denuncia, :anonima, :id_usuario)';
     private const SELECT_ALL = 'SELECT * FROM denuncias';
     private const UPDATE_DENUNCIA = 'UPDATE denuncias SET titulo = :titulo, descricao = :descricao, local_denuncia = :local_denuncia, anonima = :anonima WHERE id_denuncia = :id';

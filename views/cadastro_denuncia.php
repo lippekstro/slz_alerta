@@ -50,7 +50,7 @@ $lista = TipoDenuncia::listar();
                 </div>
                 <div class="mb-1">
                     <label for="imagens" class="form-label">Imagens</label>
-                    <input class="form-control" type="file" id="imagens" name="imagens" multiple>
+                    <input class="form-control" type="file" id="imagens" name="imagens[]" multiple>
                     <span class="fs-6 fst-italic">Adicione até 3 imagens que mostrem claramente o problema. Tamanho máximo 5MB por imagem.</span>
                 </div>
                 <div class="mb-5">

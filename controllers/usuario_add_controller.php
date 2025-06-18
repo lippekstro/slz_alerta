@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/usuario.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/configs/utils.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Lógica para registro de usuário
@@ -11,28 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cpf = htmlspecialchars($_POST['cpf']);
     $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
-    $caminhoImagem = null;
-    if (!empty($_FILES['imagem']['tmp_name'])) {
-        // Define o diretório onde as imagens serão armazenadas
-        $diretorio = $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/uploads/usuarios/';
 
-        // Cria o diretório se não existir
-        if (!is_dir($diretorio)) {
-            mkdir($diretorio, 0755, true);
-        }
-
-        // Gera um nome único para o arquivo
-        $nomeArquivo = uniqid('img_') . '.' . pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
-
-        // Caminho completo no servidor
-        $caminhoCompleto = $diretorio . $nomeArquivo;
-
-        // Caminho que será salvo no banco
-        $caminhoImagem = 'uploads/usuarios/' . $nomeArquivo;
-
-        // Move o arquivo enviado para o diretório
-        move_uploaded_file($_FILES['imagem']['tmp_name'], $caminhoCompleto);
-    }
 
     // Criar uma instância de Usuario
     $novoUsuario = new Usuario();
@@ -42,11 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novoUsuario->setCpf($cpf);
     $novoUsuario->setSenha($senha);
 
-    if(isset($caminhoImagem)){
-        $novoUsuario->setFotoUsuario($caminhoImagem);
-    } else {
-        $novoUsuario->setFotoUsuario(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/imgs/dummy_usuario.png'));
-    }
+    $novoUsuario->setFotoUsuario(Utils::salvarImagemUsuario());
+
 
     // Chamar o método para criar o usuário
     $novoUsuario->criar();
