@@ -4,6 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/denuncia.php';
 
 $denuncia = Denuncia::listarPorId($_GET['id']);
 $imagens = explode(',', $denuncia['imagens']);
+$categorias = explode(',', $denuncia['categorias']);
 
 // echo '<pre>';
 // var_dump($denuncia);
@@ -38,7 +39,12 @@ $imagens = explode(',', $denuncia['imagens']);
 
         <p class="btn btn-primary mb-3"><?= $denuncia['status_denuncia']; ?></p>
 
-        <p class="d-flex align-center mb-3">
+        <h2 class="mb-3">Categorias:</h2>
+        <?php foreach($categorias as $c): ?>
+            <span class="badge text-bg-secondary"><?= $c; ?></span>
+        <?php endforeach; ?>
+        
+        <p class="d-flex align-center my-3">
             <span class="material-symbols-outlined me-3">location_on</span>
             <?= $denuncia['local_denuncia']; ?>
         </p>

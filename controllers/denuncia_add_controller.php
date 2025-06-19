@@ -28,11 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     // Associar o tipo com a denuncia
-    $novaAssociacao = new DenunciaTipo();
-    $novaAssociacao->setIdDenuncia($novaDenuncia->getId());
-    $novaAssociacao->setTipoDenuncia($categoria);
+    foreach($categoria as $c){
+        $novaAssociacao = new DenunciaTipo();
+        $novaAssociacao->setIdDenuncia($novaDenuncia->getId());
+        $novaAssociacao->setTipoDenuncia($c);
 
-    $novaAssociacao->criar();
+        $novaAssociacao->criar();
+    }
+    
 
 
     if (!empty($_FILES['imagens']['name'][0])) {

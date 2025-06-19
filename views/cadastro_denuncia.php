@@ -8,6 +8,8 @@ if(!isset($_SESSION['id_usuario'])){
 }
 
 $lista = TipoDenuncia::listar();
+
+
 ?>
 
 <section class="p-5">
@@ -29,12 +31,13 @@ $lista = TipoDenuncia::listar();
                     <textarea class="form-control" id="descricao" rows="3" name="descricao" required></textarea>
                 </div>
                 <div class="mb-1">
-                    <label for="categoria" class="form-label">Categoria<span class="text-danger">*</span></label>
-                    <select class="form-select" id="categoria" name="categoria" required>
+                    <fieldset>
+                        <legend>Categorias</legend>    
                         <?php foreach ($lista as $c) : ?>
-                            <option value="<?= $c['id_tipo_denuncia'] ?>"><?= $c['nome'] ?></option>
+                            <input type="checkbox" class="form-check-input " id="chk_<?= $c['id_tipo_denuncia'] ?>" name="categoria[]" value="<?= $c['id_tipo_denuncia'] ?>">
+                            <label class="form-check-label me-3" for="chk_<?= $c['id_tipo_denuncia'] ?>"><?= $c['nome'] ?></label>
                         <?php endforeach; ?>
-                    </select>
+                    </fieldset>
                 </div>
                 <div class="mb-1 col-lg-8">
                     <label for="endereco" class="form-label">Endereço<span class="text-danger">*</span></label>
