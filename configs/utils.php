@@ -4,7 +4,7 @@ class Utils
 {
     public static function salvarImagemUsuario($inputName = 'imagem')
     {
-        $caminhoImagem = '/slz_alerta/imgs/dummy_usuario.png'; // Placeholder padrão
+        $caminhoImagem = 'imgs/dummy_usuario.png'; // Placeholder padrão
 
         if (!empty($_FILES[$inputName]['tmp_name'])) {
             // Define o diretório onde as imagens serão armazenadas
@@ -33,7 +33,7 @@ class Utils
 
     public static function salvarImagemDenuncia($inputName = 'imagem')
     {
-        $caminhoImagem = '/slz_alerta/imgs/dummy_usuario.png'; // Placeholder padrão
+        $caminhoImagem = 'imgs/dummy_usuario.png'; // Placeholder padrão
 
         if (!empty($_FILES[$inputName]['tmp_name'])) {
             // Define o diretório onde as imagens serão armazenadas

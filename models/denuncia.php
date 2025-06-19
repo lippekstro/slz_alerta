@@ -17,10 +17,14 @@ class Denuncia
     private const SELECT_USER_E_DENUNCIA_BY_ID = "SELECT u.nome, u.foto, d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens FROM usuarios u JOIN denuncias d ON d.id_usuario = u.id_usuario LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia";
     private const INSERT_DENUNCIA = 'INSERT INTO denuncias (titulo, descricao, local_denuncia, anonima, id_usuario) VALUES (:titulo, :descricao, :local_denuncia, :anonima, :id_usuario)';
     private const SELECT_ALL = "SELECT d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia GROUP BY d.id_denuncia";
+    private const SELECT_ALL_ACEITAS = "SELECT d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia WHERE status_denuncia IN ('Aceita', 'Resolvido') GROUP BY d.id_denuncia";
+    private const SELECT_ALL_ANALISE = "SELECT d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia WHERE status_denuncia IN ('Em Analise') GROUP BY d.id_denuncia";
+    private const SELECT_IMGS_DENUNCIA = "SELECT GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia";
     private const UPDATE_DENUNCIA = 'UPDATE denuncias SET titulo = :titulo, descricao = :descricao, local_denuncia = :local_denuncia, anonima = :anonima WHERE id_denuncia = :id';
+    private const APROVE_DENUNCIA = 'UPDATE denuncias SET status_denuncia = :status_denuncia WHERE id_denuncia = :id';
     private const DELETE_DENUNCIA = 'DELETE FROM denuncias WHERE id_denuncia = :id';
 
-    private const SELECT_BY_TITULO = 'SELECT * FROM denuncias WHERE titulo LIKE :termo';
+    private const SELECT_BY_TITULO = "SELECT * FROM denuncias WHERE titulo LIKE :termo AND status_denuncia IN ('Aceita', 'Resolvido')";
 
     public function __construct($id = false)
     {
@@ -158,6 +162,49 @@ class Denuncia
         }
     }
 
+    public static function listarAceitas()
+    {
+        try {
+            $conexao = Conexao::criaConexao();
+            $stmt = $conexao->prepare(self::SELECT_ALL_ACEITAS);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            // Tratamento de exceções
+            echo 'Erro ao listar denúncias: ' . $e->getMessage();
+            exit();
+        }
+    }
+
+    public static function listarParaAnalise()
+    {
+        try {
+            $conexao = Conexao::criaConexao();
+            $stmt = $conexao->prepare(self::SELECT_ALL_ANALISE);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            // Tratamento de exceções
+            echo 'Erro ao listar denúncias: ' . $e->getMessage();
+            exit();
+        }
+    }
+
+    public static function listarImagensPorDenuncia($id)
+    {
+        try {
+            $conexao = Conexao::criaConexao();
+            $stmt = $conexao->prepare(self::SELECT_IMGS_DENUNCIA);
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
+            return $stmt->fetch();
+        } catch (PDOException $e) {
+            // Tratamento de exceções
+            echo 'Erro ao listar denúncias: ' . $e->getMessage();
+            exit();
+        }
+    }
+
     public static function listarPorId($id){
         try {
             $conexao = Conexao::criaConexao();
@@ -196,6 +243,20 @@ class Denuncia
             $stmt->bindValue(':local_denuncia', $this->local_denuncia);
             $stmt->bindValue(':anonima', $this->anonima);
             $stmt->bindValue(':id', $this->id_denuncia);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            // Tratamento de exceções
+            echo 'Erro ao atualizar denúncia: ' . $e->getMessage();
+            exit();
+        }
+    }
+
+    public static function aprovarDenucia($id){
+        try {
+            $conexao = Conexao::criaConexao();
+            $stmt = $conexao->prepare(self::APROVE_DENUNCIA);
+            $stmt->bindValue(':status_denuncia', 'Aceita');
+            $stmt->bindValue(':id', $id);
             $stmt->execute();
         } catch (PDOException $e) {
             // Tratamento de exceções

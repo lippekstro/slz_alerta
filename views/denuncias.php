@@ -5,7 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/denuncia.php';
 if(isset($_GET['busca'])){
     $lista = Denuncia::listarPorTermo($_GET['busca']);
 } else {
-    $lista = Denuncia::listar();
+    $lista = Denuncia::listarAceitas();
 }
 
 ?>

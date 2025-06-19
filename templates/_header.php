@@ -31,8 +31,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/auth/auth.php';
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-between w-100">
-                        <div class="d-flex flex-column flex-lg-row mb-1 mb-lg-0">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-between w-100 align-items-center">
+                        <div class="d-flex flex-column flex-lg-row mb-1 mb-lg-0 align-items-center">
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-center" href="/slz_alerta/index.php">
                                     <span class="material-symbols-outlined">home</span>
@@ -53,9 +53,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/auth/auth.php';
                             <li class="nav-item mb-1">
                                 <a class="nav-link" href="/slz_alerta/views/sobre.php">Sobre</a>
                             </li>
-                            <li class="nav-item mb-1">
-                                <a class="nav-link" href="/slz_alerta/views/admin/analises.php">Análises</a>
-                            </li>
+
+                            <?php if(Auth::estaAutenticado() && Auth::ehAdmin()): ?>
+                                <span class="material-symbols-outlined">Admin_Panel_Settings</span>
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link" href="/slz_alerta/views/admin/analises.php">Análises</a>
+                                </li>
+                            <?php endif; ?>
                         </div>
                         <div class="d-flex">
                             <?php if(!Auth::estaAutenticado()): ?>

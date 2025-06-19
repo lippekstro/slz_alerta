@@ -36,6 +36,10 @@ class Auth
         return isset($_SESSION['id_usuario']);
     }
 
+    public static function ehAdmin(){
+        return $_SESSION['tipo_usuario'] === 2;
+    }
+
     public static function logout()
     {
         session_unset();
