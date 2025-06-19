@@ -28,22 +28,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     // Associar o tipo com a denuncia
-    foreach($categoria as $c){
+    foreach ($categoria as $c) {
         $novaAssociacao = new DenunciaTipo();
         $novaAssociacao->setIdDenuncia($novaDenuncia->getId());
         $novaAssociacao->setTipoDenuncia($c);
 
         $novaAssociacao->criar();
     }
-    
+
 
 
     if (!empty($_FILES['imagens']['name'][0])) {
+        // Verificar se o número de imagens excede 3
+        if (count($_FILES['imagens']['name']) > 3) {
+            $_SESSION['aviso'] = "Excedeu o máximo de 3 imagens";
+            header('Location: /slz_alerta/views/cadastro_denuncia.php');
+            exit();
+        }
+
         // Itera sobre cada imagem enviada
         foreach ($_FILES['imagens']['tmp_name'] as $index => $tmpName) {
             // Ignora arquivos com erro
             if ($_FILES['imagens']['error'][$index] !== UPLOAD_ERR_OK) {
                 continue;
+            }
+
+            // Validação de tipo de imagem
+            $infoImagem = getimagesize($tmpName);
+            $mimeType = $infoImagem['mime'] ?? '';
+
+            $tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp'];
+
+            if (!in_array($mimeType, $tiposPermitidos)) {
+                $_SESSION['aviso'] = "Tipo de arquivo inválido. Só é permitido PNG, JPG ou WEBP.";
+                header('Location: /slz_alerta/views/cadastro_denuncia.php');
+                exit();
             }
 
             // Temporariamente reorganiza os dados para passar para o método

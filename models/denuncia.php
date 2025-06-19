@@ -13,19 +13,19 @@ class Denuncia
     private $id_usuario;
 
     // SQL Queries
-    private const SELECT_BY_ID = "SELECT d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia";
+    private const SELECT_BY_ID = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia LEFT JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
     
-    private const SELECT_USER_E_DENUNCIA_BY_ID = "SELECT u.nome, u.foto, d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(c.nome SEPARATOR ',') AS categorias  FROM usuarios u JOIN denuncias d ON d.id_usuario = u.id_usuario LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia";
+    private const SELECT_USER_E_DENUNCIA_BY_ID = "SELECT u.nome, u.foto, d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias  FROM usuarios u LEFT JOIN denuncias d ON d.id_usuario = u.id_usuario LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia LEFT JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
     
     private const INSERT_DENUNCIA = 'INSERT INTO denuncias (titulo, descricao, local_denuncia, anonima, id_usuario) VALUES (:titulo, :descricao, :local_denuncia, :anonima, :id_usuario)';
     
-    private const SELECT_ALL = "SELECT d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia GROUP BY d.id_denuncia";
+    private const SELECT_ALL = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia LEFT JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
     
-    private const SELECT_ALL_ACEITAS = "SELECT d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia WHERE status_denuncia IN ('Aceita', 'Resolvido') GROUP BY d.id_denuncia";
+    private const SELECT_ALL_ACEITAS = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia LEFT JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia WHERE status_denuncia IN ('Aceita', 'Resolvido') GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
     
-    private const SELECT_ALL_ANALISE = "SELECT d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia WHERE status_denuncia IN ('Em Analise') GROUP BY d.id_denuncia";
+    private const SELECT_ALL_ANALISE = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia LEFT JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia WHERE status_denuncia IN ('Em Analise') GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
     
-    private const SELECT_IMGS_DENUNCIA = "SELECT GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia";
+    private const SELECT_IMGS_DENUNCIA = "SELECT GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia";
     
     private const UPDATE_DENUNCIA = 'UPDATE denuncias SET titulo = :titulo, descricao = :descricao, local_denuncia = :local_denuncia, anonima = :anonima WHERE id_denuncia = :id';
     
@@ -33,7 +33,7 @@ class Denuncia
     
     private const DELETE_DENUNCIA = 'DELETE FROM denuncias WHERE id_denuncia = :id';
 
-    private const SELECT_BY_TITULO = "SELECT * FROM denuncias WHERE titulo LIKE :termo AND status_denuncia IN ('Aceita', 'Resolvido')";
+    private const SELECT_BY_TITULO = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.id_denuncia LEFT JOIN tipo_denuncia c ON dt.id_tipo_denuncia = c.id_tipo_denuncia WHERE titulo LIKE :termo AND status_denuncia IN ('Aceita', 'Resolvido') GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
 
     public function __construct($id = false)
     {

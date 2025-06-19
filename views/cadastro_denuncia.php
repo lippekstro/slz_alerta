@@ -2,7 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/tipo_denuncia.php';
 
-if(!isset($_SESSION['id_usuario'])){
+if (!isset($_SESSION['id_usuario'])) {
     $_SESSION['aviso'] = "Você deve estar logado para criar uma denúncia";
     header('Location: /slz_alerta/views/login.php');
 }
@@ -32,11 +32,15 @@ $lista = TipoDenuncia::listar();
                 </div>
                 <div class="mb-1">
                     <fieldset>
-                        <legend>Categorias</legend>    
-                        <?php foreach ($lista as $c) : ?>
-                            <input type="checkbox" class="form-check-input " id="chk_<?= $c['id_tipo_denuncia'] ?>" name="categoria[]" value="<?= $c['id_tipo_denuncia'] ?>">
-                            <label class="form-check-label me-3" for="chk_<?= $c['id_tipo_denuncia'] ?>"><?= $c['nome'] ?></label>
-                        <?php endforeach; ?>
+                        <legend>Categorias<span class="text-danger">*</span></legend>
+                        <div class="row">
+                            <?php foreach ($lista as $c) : ?>
+                                <div class="col-md-4 mb-2">
+                                    <input type="checkbox" class="form-check-input " id="chk_<?= $c['id_tipo_denuncia'] ?>" name="categoria[]" value="<?= $c['id_tipo_denuncia'] ?>">
+                                    <label class="form-check-label" for="chk_<?= $c['id_tipo_denuncia'] ?>"><?= $c['nome'] ?></label>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
                     </fieldset>
                 </div>
                 <div class="mb-1 col-lg-8">
@@ -53,7 +57,7 @@ $lista = TipoDenuncia::listar();
                 </div>
                 <div class="mb-1">
                     <label for="imagens" class="form-label">Imagens</label>
-                    <input class="form-control" type="file" id="imagens" name="imagens[]" multiple>
+                    <input class="form-control" type="file" id="imagens" name="imagens[]" accept="image/*" multiple>
                     <span class="fs-6 fst-italic">Adicione até 3 imagens que mostrem claramente o problema. Tamanho máximo 5MB por imagem.</span>
                 </div>
                 <div class="mb-5">

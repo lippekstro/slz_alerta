@@ -36,6 +36,14 @@ class Utils
         $caminhoImagem = 'imgs/dummy_usuario.png'; // Placeholder padrão
 
         if (!empty($_FILES[$inputName]['tmp_name'])) {
+            // Verificar tamanho máximo (5MB = 5 * 1024 * 1024 bytes)
+            $tamanhoMaximo = 5 * 1024 * 1024; // 5MB
+            if ($_FILES[$inputName]['size'] > $tamanhoMaximo) {
+                $_SESSION['aviso'] = "Imagem maior que 5mb";
+                header('Location: /slz_alerta/views/cadastro_denuncia.php');
+                exit();
+            }
+
             // Define o diretório onde as imagens serão armazenadas
             $diretorio = $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/uploads/denuncias/';
 

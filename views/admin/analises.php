@@ -1,6 +1,13 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/denuncia.php';
+
+if (!Auth::estaAutenticado() || !Auth::ehAdmin()) {
+    $_SESSION['aviso'] = "Acesso Restrito";
+    header('Location: /slz_alerta/index.php');
+    exit();
+}
+
 $lista = Denuncia::listarParaAnalise();
 ?>
 
@@ -16,9 +23,9 @@ $lista = Denuncia::listarParaAnalise();
                 <th scope="col" colspan="3">Análise</th>
             </tr>
         </thead>
-        <?php if(count($lista) > 0): ?>
+        <?php if (count($lista) > 0): ?>
             <tbody>
-                <?php foreach($lista as $d): ?>
+                <?php foreach ($lista as $d): ?>
                     <tr>
                         <td><?= $d['titulo']; ?></td>
                         <td><?= $d['descricao']; ?></td>
