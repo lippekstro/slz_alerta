@@ -3,6 +3,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/denuncia.php';
 
 $denuncia = Denuncia::listarPorId($_GET['id']);
+$imagens = explode(',', $denuncia['imagens']);
+
+// echo '<pre>';
+// var_dump($denuncia);
+// echo '</pre>';
+// exit();
 
 ?>
 
@@ -29,36 +35,38 @@ $denuncia = Denuncia::listarPorId($_GET['id']);
 
     <div class="text-white">
         <h1 class="mb-3"><?= $denuncia['titulo']; ?></h1>
-        
+
         <p class="btn btn-primary mb-3"><?= $denuncia['status_denuncia']; ?></p>
-        
+
         <p class="d-flex align-center mb-3">
-            <span class="material-symbols-outlined me-3">location_on</span> 
+            <span class="material-symbols-outlined me-3">location_on</span>
             <?= $denuncia['local_denuncia']; ?>
         </p>
-        
+
         <p class="d-flex align-center mb-3">
             <span class="material-symbols-outlined me-3">calendar_month</span>
             <?= $denuncia['data_denuncia']; ?>
         </p>
-        
+
         <div class="d-flex align-items-center mb-3">
-            <?php if($denuncia['anonima'] == 1): ?>
+            <?php if ($denuncia['anonima'] == 1): ?>
                 <img class="imagem-redonda me-3" src="/slz_alerta/imgs/dummy_usuario.png" width="100px" height="100px">
                 <p>Denuncia Anonima</p>
             <?php else: ?>
-                <img class="imagem-redonda me-3" src="<?= $denuncia['foto']; ?>" width="100px" height="100px">
+                <img class="imagem-redonda me-3" src="/slz_alerta/<?= $denuncia['foto']; ?>" width="100px" height="100px">
                 <p><?= $denuncia['nome']; ?></p>
             <?php endif; ?>
         </div>
-        
+
         <h4>Descrição do Problema</h2>
-        <p class="justify-text"><?= $denuncia['descricao']; ?></p>
-        
-        <h4>Imagens</h3>
-        <div class="card-container">
-            <img class="card-img-top preencher-imagem" src="/slz_alerta/<?= $denuncia['arquivo']; ?>" width="500px" height="500px">
-        </div>
+            <p class="justify-text"><?= $denuncia['descricao']; ?></p>
+
+            <h4>Imagens</h4>
+            <div class="card-container">
+                <?php foreach ($imagens as $imagem): ?>
+                    <img class="card-img-top preencher-imagem" src="/slz_alerta/<?= $imagem; ?>" width="500px" height="500px">
+                <?php endforeach; ?>
+            </div>
     </div>
 
     <div>

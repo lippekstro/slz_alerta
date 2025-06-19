@@ -13,10 +13,10 @@ class Denuncia
     private $id_usuario;
 
     // SQL Queries
-    private const SELECT_BY_ID = 'SELECT * FROM denuncias WHERE id_denuncia = :id';
-    private const SELECT_USER_E_DENUNCIA_BY_ID = 'SELECT u.nome, u.foto, d.* FROM usuarios u JOIN denuncias d ON d.id_usuario = u.id_usuario WHERE id_denuncia = :id';
+    private const SELECT_BY_ID = "SELECT d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia";
+    private const SELECT_USER_E_DENUNCIA_BY_ID = "SELECT u.nome, u.foto, d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens FROM usuarios u JOIN denuncias d ON d.id_usuario = u.id_usuario LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia";
     private const INSERT_DENUNCIA = 'INSERT INTO denuncias (titulo, descricao, local_denuncia, anonima, id_usuario) VALUES (:titulo, :descricao, :local_denuncia, :anonima, :id_usuario)';
-    private const SELECT_ALL = 'SELECT * FROM denuncias';
+    private const SELECT_ALL = "SELECT d.*, GROUP_CONCAT(i.imagem SEPARATOR ',') AS imagens FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia GROUP BY d.id_denuncia";
     private const UPDATE_DENUNCIA = 'UPDATE denuncias SET titulo = :titulo, descricao = :descricao, local_denuncia = :local_denuncia, anonima = :anonima WHERE id_denuncia = :id';
     private const DELETE_DENUNCIA = 'DELETE FROM denuncias WHERE id_denuncia = :id';
 

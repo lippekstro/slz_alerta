@@ -35,8 +35,12 @@ if(isset($_GET['busca'])){
     <?php if(count($lista) > 0): ?>
         <div class="card-container">
             <?php foreach($lista as $d): ?>
+            <?php 
+                $imagens = explode(',', $d['imagens']);
+                $primeiraImagem = $imagens[0];    
+            ?>
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top preencher-imagem" src="/slz_alerta/<?= $d['arquivo']; ?>" width="200px" height="200px">
+                    <img class="card-img-top preencher-imagem" src="/slz_alerta/<?= $primeiraImagem; ?>" width="200px" height="200px">
                     <a href="/slz_alerta/views/detalhe_denuncia.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black">
                         <div class="card-body">
                             <h5 class="card-title"><?= $d['titulo']; ?></h5>

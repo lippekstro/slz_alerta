@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
 
             // Salva a imagem
-            $caminhoImagem = Utils::salvarImagemUsuario('imagem');
+            $caminhoImagem = Utils::salvarImagemDenuncia('imagem');
 
             // Cria e associa a imagem à denúncia
             $novaImagem = new ImagensDenuncia();
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     // Redirecionar para login
-    $_SESSION['aviso'] = "Denúncia cadastrada";
+    $_SESSION['aviso'] = "Denúncia enviada para Análise";
     header('Location: /slz_alerta/index.php');
     exit();
 }

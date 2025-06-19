@@ -53,6 +53,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/auth/auth.php';
                             <li class="nav-item mb-1">
                                 <a class="nav-link" href="/slz_alerta/views/sobre.php">Sobre</a>
                             </li>
+                            <li class="nav-item mb-1">
+                                <a class="nav-link" href="/slz_alerta/views/admin/analises.php">Análises</a>
+                            </li>
                         </div>
                         <div class="d-flex">
                             <?php if(!Auth::estaAutenticado()): ?>
