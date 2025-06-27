@@ -33,7 +33,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
             </div>
             <div class="mb-3">
                 <label for="imagem" class="form-label">Imagem</label>
-                <input class="form-control" type="file" id="imagem" name="imagem">
+                <input class="form-control" type="file" id="imagem" name="imagem" accept="image/*">
             </div>
 
             <button class="btn btn-primary w-100 py-2" type="submit">Cadastrar</button>

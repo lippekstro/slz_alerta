@@ -7,6 +7,25 @@ class Utils
         $caminhoImagem = 'imgs/dummy_usuario.png'; // Placeholder padrão
 
         if (!empty($_FILES[$inputName]['tmp_name'])) {
+            // Verificar tamanho máximo (5MB = 5 * 1024 * 1024 bytes)
+            $tamanhoMaximo = 5 * 1024 * 1024; // 5MB
+            if ($_FILES[$inputName]['size'] > $tamanhoMaximo) {
+                $_SESSION['aviso'] = "Imagem maior que 5mb";
+                header('Location: /slz_alerta/views/cadastro_usuario.php');
+                exit();
+            }
+
+            // Verificar tipo de imagem
+            $tiposPermitidos = ['image/jpeg', 'image/png', 'image/webp'];
+            $tipoMime = mime_content_type($_FILES[$inputName]['tmp_name']);
+
+            if (!in_array($tipoMime, $tiposPermitidos)) {
+                $_SESSION['aviso'] = "Tipo de imagem inválido. Permitidos: JPEG, PNG e WebP";
+                header('Location: /slz_alerta/views/cadastro_usuario.php');
+                exit();
+            }
+
+
             // Define o diretório onde as imagens serão armazenadas
             $diretorio = $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/uploads/usuarios/';
 

@@ -89,14 +89,14 @@ class Usuario
     }
 
     public function getFotoUsuario()
-     {
-         return $this->foto_usuario;
-     }
+    {
+        return $this->foto_usuario;
+    }
 
-     public function setFotoUsuario($foto_usuario)
-     {
-         $this->foto_usuario = $foto_usuario;
-     }
+    public function setFotoUsuario($foto_usuario)
+    {
+        $this->foto_usuario = $foto_usuario;
+    }
 
     private function carregar()
     {
@@ -137,9 +137,17 @@ class Usuario
             $stmt->execute();
             $this->id_usuario = $conexao->lastInsertId();
         } catch (PDOException $e) {
-            // Tratamento de exceções
-            echo 'Erro ao criar usuário: ' . $e->getMessage();
-            exit();
+            // Verifica se é erro de duplicidade (ex: email já cadastrado)
+            if ($e->getCode() == '23000') {
+                session_start();
+                $_SESSION['aviso'] = "Email já cadastrado utilize outro";
+                header("Location: /slz_alerta/views/cadastro_usuario.php");
+                exit();
+            } else {
+                // Tratamento de exceções
+                echo 'Erro ao criar usuário: ' . $e->getMessage();
+                exit();
+            }
         }
     }
 
