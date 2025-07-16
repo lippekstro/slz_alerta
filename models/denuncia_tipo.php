@@ -4,14 +4,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/configs/conexao.php';
 class DenunciaTipo
 {
     private $id_denuncia_tipo;
-    private $id_denuncia;
-    private $id_tipo_denuncia;
+    private $denuncia;
+    private $categoria;
     
     // SQL Queries
     private const SELECT_BY_ID = 'SELECT * FROM denuncia_tipo WHERE id_denuncia_tipo = :id';
-    private const INSERT_TIPO_DENUNCIA = 'INSERT INTO denuncia_tipo (id_denuncia, id_tipo_denuncia) VALUES (:id_denuncia, :id_tipo_denuncia)';
+    private const INSERT_TIPO_DENUNCIA = 'INSERT INTO denuncia_tipo (id_denuncia, categoria) VALUES (:id_denuncia, :categoria)';
     private const SELECT_ALL = 'SELECT * FROM denuncia_tipo';
-    private const UPDATE_TIPO_DENUNCIA = 'UPDATE denuncia_tipo SET id_denuncia = :id_denuncia, id_tipo_denuncia = :id_tipo_denuncia WHERE id_denuncia_tipo = :id';
+    private const UPDATE_TIPO_DENUNCIA = 'UPDATE denuncia_tipo SET id_denuncia = :id_denuncia, categoria = :categoria WHERE id_denuncia_tipo = :id';
     private const DELETE_TIPO_DENUNCIA = 'DELETE FROM denuncia_tipo WHERE id_denuncia_tipo = :id';
 
     public function __construct($id = false)
@@ -27,24 +27,24 @@ class DenunciaTipo
         return $this->id_denuncia_tipo;
     }
 
-    public function getIdDenuncia()
+    public function getDenuncia()
     {
-        return $this->id_denuncia;
+        return $this->denuncia;
     }
 
-    public function setIdDenuncia($id_denuncia)
+    public function setDenuncia($id_denuncia)
     {
-        $this->id_denuncia = $id_denuncia;
+        $this->denuncia = $id_denuncia;
     }
 
-    public function getTipoDenuncia()
+    public function getCategoria()
     {
-        return $this->id_tipo_denuncia;
+        return $this->categoria;
     }
 
-    public function setTipoDenuncia($id_tipo_denuncia)
+    public function setCategoria($id_categoria)
     {
-        $this->id_tipo_denuncia = $id_tipo_denuncia;
+        $this->categoria = $id_categoria;
     }
 
     private function carregar()
@@ -57,8 +57,8 @@ class DenunciaTipo
             $resultado = $stmt->fetch();
 
             if ($resultado) {
-                $this->id_denuncia = $resultado['id_denuncia'];
-                $this->id_tipo_denuncia = $resultado['id_tipo_denuncia'];
+                $this->denuncia = $resultado['denuncia'];
+                $this->categoria = $resultado['categoria'];
             }
         } catch (PDOException $e) {
             // Tratamento de exceções
@@ -71,8 +71,8 @@ class DenunciaTipo
         try {
             $conexao = Conexao::criaConexao();
             $stmt = $conexao->prepare(self::INSERT_TIPO_DENUNCIA);
-            $stmt->bindValue(':id_denuncia', $this->id_denuncia);
-            $stmt->bindValue(':id_tipo_denuncia', $this->id_tipo_denuncia);
+            $stmt->bindValue(':denuncia', $this->denuncia);
+            $stmt->bindValue(':categoria', $this->categoria);
             $stmt->execute();
             $this->id_denuncia_tipo = $conexao->lastInsertId();
         } catch (PDOException $e) {
@@ -99,8 +99,8 @@ class DenunciaTipo
         try {
             $conexao = Conexao::criaConexao();
             $stmt = $conexao->prepare(self::UPDATE_TIPO_DENUNCIA);
-            $stmt->bindValue(':id_denuncia', $this->id_denuncia);
-            $stmt->bindValue(':id_tipo_denuncia', $this->id_tipo_denuncia);
+            $stmt->bindValue(':denuncia', $this->denuncia);
+            $stmt->bindValue(':categoria', $this->categoria);
             $stmt->bindValue(':id', $this->id_denuncia_tipo);
             $stmt->execute();
         } catch (PDOException $e) {

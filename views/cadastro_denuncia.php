@@ -36,8 +36,8 @@ $lista = TipoDenuncia::listar();
                         <div class="row">
                             <?php foreach ($lista as $c) : ?>
                                 <div class="col-md-4 mb-2">
-                                    <input type="checkbox" class="form-check-input " id="chk_<?= $c['id_tipo_denuncia'] ?>" name="categoria[]" value="<?= $c['id_tipo_denuncia'] ?>">
-                                    <label class="form-check-label" for="chk_<?= $c['id_tipo_denuncia'] ?>"><?= $c['nome'] ?></label>
+                                    <input type="checkbox" class="form-check-input " id="chk_<?= $c['id_categoria'] ?>" name="categoria[]" value="<?= $c['id_categoria'] ?>">
+                                    <label class="form-check-label" for="chk_<?= $c['id_categoria'] ?>"><?= $c['nome'] ?></label>
                                 </div>
                             <?php endforeach; ?>
                         </div>

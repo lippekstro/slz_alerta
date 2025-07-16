@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Associar o tipo com a denuncia
     foreach ($categoria as $c) {
         $novaAssociacao = new DenunciaTipo();
-        $novaAssociacao->setIdDenuncia($novaDenuncia->getId());
-        $novaAssociacao->setTipoDenuncia($c);
+        $novaAssociacao->setDenuncia($novaDenuncia->getId());
+        $novaAssociacao->setCategoria($c);
 
         $novaAssociacao->criar();
     }

@@ -12,7 +12,7 @@ class ImagensDenuncia
     private const SELECT_BY_ID = 'SELECT * FROM imgs_denuncia WHERE id_img = :id';
     private const INSERT_IMAGEM_DENUNCIA = 'INSERT INTO imgs_denuncia (descricao, imagem, denuncia) VALUES (:descricao, :imagem, :denuncia)';
     private const SELECT_ALL = 'SELECT * FROM imgs_denuncia';
-    //private const UPDATE_TIPO_DENUNCIA = 'UPDATE tipo_denuncia SET nome = :nome, descricao = :descricao WHERE id_tipo_denuncia = :id';
+    //private const UPDATE_TIPO_DENUNCIA = 'UPDATE categorias SET nome = :nome, descricao = :descricao WHERE id_categoria = :id';
     private const DELETE_IMAGEM_DENUNCIA = 'DELETE FROM imgs_denuncia WHERE id_img = :id';
 
     public function __construct($id = false)
@@ -114,7 +114,7 @@ class ImagensDenuncia
     //         $stmt = $conexao->prepare(self::UPDATE_TIPO_DENUNCIA);
     //         $stmt->bindValue(':nome', $this->nome);
     //         $stmt->bindValue(':descricao', $this->descricao);
-    //         $stmt->bindValue(':id', $this->id_tipo_denuncia);
+    //         $stmt->bindValue(':id', $this->id_categoria);
     //         $stmt->execute();
     //     } catch (PDOException $e) {
     //         // Tratamento de exceções
