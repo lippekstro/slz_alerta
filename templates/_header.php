@@ -41,23 +41,44 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/auth/auth.php';
                             </li>
                             <?php if(!Auth::estaAutenticado()): ?>
                                 <li class="nav-item mb-1">
-                                    <a class="nav-link" href="/slz_alerta/views/cadastro_usuario.php">Cadastre-se</a>
+                                    <a class="nav-link d-flex align-center" href="/slz_alerta/views/cadastro_usuario.php">
+                                        <span class="material-symbols-outlined">id_card</span>
+                                        Cadastre-se
+                                    </a>
                                 </li>
                             <?php endif; ?>
                             <li class="nav-item mb-1">
-                                <a class="nav-link" href="/slz_alerta/views/cadastro_denuncia.php">Denunciar</a>
+                                <a class="nav-link d-flex align-center" href="/slz_alerta/views/cadastro_denuncia.php">
+                                    <span class="material-symbols-outlined">report</span>    
+                                    Denunciar
+                                </a>
                             </li>
                             <li class="nav-item mb-1">
-                                <a class="nav-link" href="/slz_alerta/views/denuncias.php">Historico</a>
+                                <a class="nav-link d-flex align-center" href="/slz_alerta/views/denuncias.php">
+                                    <span class="material-symbols-outlined">history</span>
+                                    Historico
+                                </a>
                             </li>
                             <li class="nav-item mb-1">
-                                <a class="nav-link" href="/slz_alerta/views/sobre.php">Sobre</a>
+                                <a class="nav-link d-flex align-center" href="/slz_alerta/views/sobre.php">
+                                    <span class="material-symbols-outlined">info</span>
+                                    Sobre
+                                </a>
                             </li>
 
                             <?php if(Auth::estaAutenticado() && Auth::ehAdmin()): ?>
                                 <span class="material-symbols-outlined">Admin_Panel_Settings</span>
                                 <li class="nav-item mb-1">
-                                    <a class="nav-link" href="/slz_alerta/views/admin/analises.php">Análises</a>
+                                    <a class="nav-link d-flex align-center" href="/slz_alerta/views/admin/analises.php">Análises</a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php if(Auth::estaAutenticado()): ?>
+                                <li class="nav-item mb-1">
+                                    <a class="nav-link d-flex align-center" href="/slz_alerta/views/minhas_denuncias.php">
+                                        <span class="material-symbols-outlined">feedback</span>
+                                        Minhas Denúncias
+                                    </a>
                                 </li>
                             <?php endif; ?>
                         </div>

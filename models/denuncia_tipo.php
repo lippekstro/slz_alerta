@@ -9,9 +9,9 @@ class DenunciaTipo
     
     // SQL Queries
     private const SELECT_BY_ID = 'SELECT * FROM denuncia_tipo WHERE id_denuncia_tipo = :id';
-    private const INSERT_TIPO_DENUNCIA = 'INSERT INTO denuncia_tipo (id_denuncia, categoria) VALUES (:id_denuncia, :categoria)';
+    private const INSERT_TIPO_DENUNCIA = 'INSERT INTO denuncia_tipo (denuncia, categoria) VALUES (:denuncia, :categoria)';
     private const SELECT_ALL = 'SELECT * FROM denuncia_tipo';
-    private const UPDATE_TIPO_DENUNCIA = 'UPDATE denuncia_tipo SET id_denuncia = :id_denuncia, categoria = :categoria WHERE id_denuncia_tipo = :id';
+    private const UPDATE_TIPO_DENUNCIA = 'UPDATE denuncia_tipo SET denuncia = :denuncia, categoria = :categoria WHERE id_denuncia_tipo = :id';
     private const DELETE_TIPO_DENUNCIA = 'DELETE FROM denuncia_tipo WHERE id_denuncia_tipo = :id';
 
     public function __construct($id = false)
