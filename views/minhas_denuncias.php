@@ -35,7 +35,7 @@ $lista = Denuncia::listarProprias($_SESSION['id_usuario']);
                         <td><?= $d['anonima']; ?></td>
                         <td><?= $d['local_denuncia']; ?></td>
                         <td><?= $d['status_denuncia']; ?></td>
-                        <td><a href="/slz_alerta/controllers/denuncia_aprovar_controller.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">check</span>Editar</a></td>
+                        <td><a href="/slz_alerta/views/editar_denuncia.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">edit</span>Editar</a></td>
                         <td><a href="/slz_alerta/controllers/denuncia_reprovar_controller.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">block</span>Deletar</a></td>
                         <td><a href="/slz_alerta/views/detalhe_denuncia.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">info</span>Detalhes</a></td>
                     </tr>

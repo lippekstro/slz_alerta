@@ -15,7 +15,7 @@ class Denuncia
     // SQL Queries
     private const SELECT_BY_ID = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.denuncia LEFT JOIN categorias c ON dt.categoria = c.id_categoria WHERE d.id_denuncia = :id GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
     
-    private const SELECT_USER_E_DENUNCIA_BY_ID = "SELECT u.nome, u.foto, d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias  FROM usuarios u LEFT JOIN denuncias d ON d.id_usuario = u.id_usuario LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.denuncia LEFT JOIN categorias c ON dt.categoria = c.id_categoria WHERE d.id_denuncia = :id GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
+    private const SELECT_USER_E_DENUNCIA_BY_ID = "SELECT u.nome, u.foto, d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.id_categoria SEPARATOR ',') AS categorias_ids, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias  FROM usuarios u LEFT JOIN denuncias d ON d.id_usuario = u.id_usuario LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.denuncia LEFT JOIN categorias c ON dt.categoria = c.id_categoria WHERE d.id_denuncia = :id GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
     
     private const INSERT_DENUNCIA = 'INSERT INTO denuncias (titulo, descricao, local_denuncia, anonima, id_usuario) VALUES (:titulo, :descricao, :local_denuncia, :anonima, :id_usuario)';
     
