@@ -30,6 +30,7 @@ if (preg_match('/^(.*?)\s*\((.*?)\),\s*(.*)$/', $local, $matches)) {
     <div class="text-black p-3 rounded bg-white mb-3">
         <h1>Editar Denúncia</h1>
         <p>Altere o formulário abaixo para editar uma denúncia sobre problemas urbanos em São Luís</p>
+        <p>Ao atualizar a denúncia ela voltará para o estado de análise e só sera exibida na página principal após algum administrador avaliá-la</p>
     </div>
 
     <div class="text-white mb-3">

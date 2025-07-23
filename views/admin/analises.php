@@ -30,7 +30,7 @@ $lista = Denuncia::listarParaAnalise();
                         <td><?= $d['titulo']; ?></td>
                         <td><?= $d['descricao']; ?></td>
                         <td><?= $d['data_denuncia']; ?></td>
-                        <td><?= $d['anonima']; ?></td>
+                        <td><?= $d['anonima'] == 1 ? 'Sim' : 'Não'; ?></td>
                         <td><?= $d['local_denuncia']; ?></td>
                         <td><a href="/slz_alerta/controllers/denuncia_aprovar_controller.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">check</span>Aprovar</a></td>
                         <td><a href="/slz_alerta/controllers/denuncia_reprovar_controller.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">block</span>Reprovar</a></td>

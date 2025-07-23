@@ -32,7 +32,7 @@ $lista = Denuncia::listarProprias($_SESSION['id_usuario']);
                         <td><?= $d['titulo']; ?></td>
                         <td><?= $d['descricao']; ?></td>
                         <td><?= $d['data_denuncia']; ?></td>
-                        <td><?= $d['anonima']; ?></td>
+                        <td><?= $d['anonima'] == 1 ? 'Sim' : 'Não'; ?></td>
                         <td><?= $d['local_denuncia']; ?></td>
                         <td><?= $d['status_denuncia']; ?></td>
                         <td><a href="/slz_alerta/views/editar_denuncia.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">edit</span>Editar</a></td>

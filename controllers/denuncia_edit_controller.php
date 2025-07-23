@@ -24,12 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novaDenuncia->setAnonima($anonima);
     $novaDenuncia->setStatusDenuncia('Em Analise');
 
-    var_dump($novaDenuncia);
-    exit();
-
     // Chamar o método para criar o usuário
     $novaDenuncia->atualizar();
 
+    DenunciaTipo::removerPorDenuncia($novaDenuncia->getId());
 
     // Associar o tipo com a denuncia
     foreach ($categoria as $c) {
@@ -95,8 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // }
 
 
-
-    // Redirecionar para login
     $_SESSION['aviso'] = "Denúncia enviada para Análise";
     header('Location: /slz_alerta/index.php');
     exit();

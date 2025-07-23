@@ -27,7 +27,7 @@ class Denuncia
     
     private const SELECT_IMGS_DENUNCIA = "SELECT GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia";
     
-    private const UPDATE_DENUNCIA = 'UPDATE denuncias SET titulo = :titulo, descricao = :descricao, local_denuncia = :local_denuncia, anonima = :anonima WHERE id_denuncia = :id';
+    private const UPDATE_DENUNCIA = 'UPDATE denuncias SET titulo = :titulo, descricao = :descricao, local_denuncia = :local_denuncia, anonima = :anonima, status_denuncia = :status_d WHERE id_denuncia = :id';
     
     private const APROVE_DENUNCIA = 'UPDATE denuncias SET status_denuncia = :status_denuncia WHERE id_denuncia = :id';
     
@@ -267,6 +267,7 @@ class Denuncia
             $stmt->bindValue(':descricao', $this->descricao);
             $stmt->bindValue(':local_denuncia', $this->local_denuncia);
             $stmt->bindValue(':anonima', $this->anonima);
+            $stmt->bindValue(':status_d', $this->status_denuncia);
             $stmt->bindValue(':id', $this->id_denuncia);
             $stmt->execute();
         } catch (PDOException $e) {
