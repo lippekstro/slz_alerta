@@ -23,7 +23,7 @@ class Denuncia
     
     private const SELECT_ALL_ACEITAS = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.denuncia LEFT JOIN categorias c ON dt.categoria = c.id_categoria WHERE status_denuncia IN ('Aceita', 'Resolvido') GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
     
-    private const SELECT_ALL_ANALISE = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.denuncia LEFT JOIN categorias c ON dt.categoria = c.id_categoria WHERE status_denuncia IN ('Em Analise') GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
+    private const SELECT_ALL_ANALISE = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.denuncia LEFT JOIN categorias c ON dt.categoria = c.id_categoria WHERE status_denuncia IN ('Em Analise', 'Aceita') GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC";
     
     private const SELECT_IMGS_DENUNCIA = "SELECT GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia WHERE d.id_denuncia = :id GROUP BY d.id_denuncia";
     
@@ -282,6 +282,20 @@ class Denuncia
             $conexao = Conexao::criaConexao();
             $stmt = $conexao->prepare(self::APROVE_DENUNCIA);
             $stmt->bindValue(':status_denuncia', 'Aceita');
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            // Tratamento de exceções
+            echo 'Erro ao atualizar denúncia: ' . $e->getMessage();
+            exit();
+        }
+    }
+
+    public static function resolverDenucia($id){
+        try {
+            $conexao = Conexao::criaConexao();
+            $stmt = $conexao->prepare(self::APROVE_DENUNCIA);
+            $stmt->bindValue(':status_denuncia', 'Resolvido');
             $stmt->bindValue(':id', $id);
             $stmt->execute();
         } catch (PDOException $e) {

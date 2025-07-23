@@ -40,11 +40,17 @@ if(isset($_GET['busca'])){
                 $primeiraImagem = $imagens[0];    
             ?>
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top preencher-imagem" src="/slz_alerta/<?= $primeiraImagem; ?>" width="200px" height="200px">
+                    <div class="">
+                        <img class="card-img-top preencher-imagem" src="/slz_alerta/<?= $primeiraImagem; ?>" width="200px" height="200px">
+                    </div>
+                    
                     <a href="/slz_alerta/views/detalhe_denuncia.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black">
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $d['titulo']; ?></h5>
+                        <div class="card-body position-relative">
+                            <h5 class="card-title text-center"><?= $d['titulo']; ?></h5>
                             <p class="card-text justify-text"><?= $d['descricao']; ?></p>
+                            <?php if($d['status_denuncia'] == 'Resolvido'): ?>
+                                <span class="material-symbols-outlined position-absolute top-0 end-0 text-success fs-1" title="resolvido">check_circle</span>
+                            <?php endif; ?>
                         </div>
                     </a>
                 </div>

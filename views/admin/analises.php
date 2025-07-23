@@ -32,7 +32,15 @@ $lista = Denuncia::listarParaAnalise();
                         <td><?= $d['data_denuncia']; ?></td>
                         <td><?= $d['anonima'] == 1 ? 'Sim' : 'Não'; ?></td>
                         <td><?= $d['local_denuncia']; ?></td>
-                        <td><a href="/slz_alerta/controllers/denuncia_aprovar_controller.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">check</span>Aprovar</a></td>
+                        <?php if($d['status_denuncia'] == 'Em Analise'): ?>
+                            <td>
+                                <a href="/slz_alerta/controllers/denuncia_aprovar_controller.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">check</span>Aprovar</a>
+                            </td>
+                        <?php elseif($d['status_denuncia'] == 'Aceita'): ?>
+                            <td>
+                                <a href="/slz_alerta/controllers/denuncia_resolver_controller.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">celebration</span>Resolvida</a>
+                            </td>
+                        <?php endif; ?>
                         <td><a href="/slz_alerta/controllers/denuncia_reprovar_controller.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">block</span>Reprovar</a></td>
                         <td><a href="/slz_alerta/views/detalhe_denuncia.php?id=<?= $d['id_denuncia']; ?>" class="text-decoration-none text-black d-flex align-center"><span class="material-symbols-outlined">info</span>Detalhes</a></td>
                     </tr>
