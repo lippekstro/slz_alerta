@@ -37,6 +37,8 @@ class Denuncia
 
     private const SELECT_BY_USER = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.denuncia LEFT JOIN categorias c ON dt.categoria = c.id_categoria WHERE d.id_usuario = :id_usuario GROUP BY d.id_denuncia;";
 
+    private const SELECT_BY_FILTRO = "SELECT d.*, GROUP_CONCAT(DISTINCT i.imagem SEPARATOR ',') AS imagens, GROUP_CONCAT(DISTINCT c.nome SEPARATOR ',') AS categorias FROM denuncias d LEFT JOIN imgs_denuncia i ON d.id_denuncia = i.denuncia LEFT JOIN denuncia_tipo dt ON d.id_denuncia = dt.denuncia LEFT JOIN categorias c ON dt.categoria = c.id_categoria WHERE status_denuncia IN (:filtro) GROUP BY d.id_denuncia ORDER BY d.data_denuncia DESC;";
+
     public function __construct($id = false)
     {
         if ($id) {
@@ -249,6 +251,20 @@ class Denuncia
             $conexao = Conexao::criaConexao();
             $stmt = $conexao->prepare(self::SELECT_BY_TITULO);
             $stmt->bindValue(':termo', '%' . $termo . '%');
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            // Tratamento de exceções
+            echo 'Erro ao listar denúncias: ' . $e->getMessage();
+            exit();
+        }
+    }
+
+    public static function listarPorFiltro($filtro){
+        try {
+            $conexao = Conexao::criaConexao();
+            $stmt = $conexao->prepare(self::SELECT_BY_FILTRO);
+            $stmt->bindValue(':filtro', $filtro);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (PDOException $e) {

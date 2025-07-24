@@ -19,12 +19,23 @@ main {
     color: #a5b9ce;
 }
 
+.bg-prim a:hover {
+    color: white;
+    border: 1px solid white;
+}
+
 input {
     color: revert !important;
 }
 
 .justify-text {
     text-align: justify !important;
+}
+
+.historico-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
 }
 
 .card-container {
@@ -46,6 +57,20 @@ input {
     object-fit: fill;
 }
 
+.container-cartoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.texto-card {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
 @media only screen and (width >=992px) {
     .hero {
         height: 75vh;
@@ -53,5 +78,9 @@ input {
 
     .card-container {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .historico-container {
+        grid-template-columns: 2fr 10fr;
     }
 }

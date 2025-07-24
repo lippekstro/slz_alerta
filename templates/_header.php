@@ -67,9 +67,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/auth/auth.php';
                             </li>
 
                             <?php if(Auth::estaAutenticado() && Auth::ehAdmin()): ?>
-                                <span class="material-symbols-outlined">Admin_Panel_Settings</span>
                                 <li class="nav-item mb-1">
-                                    <a class="nav-link d-flex align-center" href="/slz_alerta/views/admin/analises.php">Análises</a>
+                                    <a class="nav-link d-flex align-center" href="/slz_alerta/views/admin/analises.php">
+                                        <span class="material-symbols-outlined">Admin_Panel_Settings</span>
+                                        Análises
+                                    </a>
                                 </li>
                             <?php endif; ?>
 
