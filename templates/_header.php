@@ -93,6 +93,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/auth/auth.php';
                                     </a>
                                 </li>
                             <?php else: ?>
+                                <li class="nav-item mx-2">
+                                    <a class="btn btn-outline-primary d-flex align-center" href="/slz_alerta/views/perfil.php">
+                                        <span class="material-symbols-outlined">account_circle</span>
+                                        Olá, <?= $_SESSION['nome'] ?>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="btn btn-outline-primary d-flex align-center" href="/slz_alerta/controllers/logout_controller.php">
                                         <span class="material-symbols-outlined">logout</span>

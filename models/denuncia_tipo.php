@@ -64,6 +64,7 @@ class DenunciaTipo
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao carregar tipo de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -79,6 +80,7 @@ class DenunciaTipo
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao criar tipo de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -92,6 +94,7 @@ class DenunciaTipo
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao listar tipos de denúncias: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -107,6 +110,7 @@ class DenunciaTipo
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao atualizar tipo de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -120,6 +124,7 @@ class DenunciaTipo
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao deletar tipo de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 

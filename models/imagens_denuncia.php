@@ -75,6 +75,7 @@ class ImagensDenuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao carregar imagem de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -91,6 +92,7 @@ class ImagensDenuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao criar imagem de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -104,6 +106,7 @@ class ImagensDenuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao listar imagens de denúncias: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -132,6 +135,7 @@ class ImagensDenuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao deletar imagem de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 }

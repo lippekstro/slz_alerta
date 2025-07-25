@@ -63,6 +63,7 @@ class TipoDenuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao carregar tipo de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -78,6 +79,7 @@ class TipoDenuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao criar tipo de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -91,6 +93,7 @@ class TipoDenuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao listar tipos de denúncias: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -106,6 +109,7 @@ class TipoDenuncia
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao atualizar tipo de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 
@@ -114,11 +118,12 @@ class TipoDenuncia
         try {
             $conexao = Conexao::criaConexao();
             $stmt = $conexao->prepare(self::DELETE_TIPO_DENUNCIA);
-            $stmt->bindValue(':id', $this->id_cat);
+            $stmt->bindValue(':id', $this->id_categoria);
             $stmt->execute();
         } catch (PDOException $e) {
             // Tratamento de exceções
             echo 'Erro ao deletar tipo de denúncia: ' . $e->getMessage();
+            exit();
         }
     }
 }

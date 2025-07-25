@@ -19,6 +19,7 @@ class Usuario
     private const UPDATE_USER = 'UPDATE usuarios SET nome_usuario = :nome, email = :email, telefone = :telefone, foto = :foto WHERE id_usuario = :id';
     private const UPDATE_PASSWORD = 'UPDATE usuarios SET senha = :senha WHERE id_usuario = :id';
     private const DELETE_USER = 'DELETE FROM usuarios WHERE id_usuario = :id';
+    private const UPDATE_IMAGE = 'UPDATE usuarios SET foto = :foto WHERE id_usuario = :id';
 
     public function __construct($id = false)
     {
@@ -189,6 +190,21 @@ class Usuario
             $conexao = Conexao::criaConexao();
             $stmt = $conexao->prepare(self::UPDATE_PASSWORD);
             $stmt->bindValue(':senha', $this->senha);
+            $stmt->bindValue(':id', $this->id_usuario);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            // Tratamento de exceções
+            echo 'Erro ao atualizar senha: ' . $e->getMessage();
+            exit();
+        }
+    }
+
+    public function atualizarFoto()
+    {
+        try {
+            $conexao = Conexao::criaConexao();
+            $stmt = $conexao->prepare(self::UPDATE_IMAGE);
+            $stmt->bindValue(':foto', $this->foto_usuario);
             $stmt->bindValue(':id', $this->id_usuario);
             $stmt->execute();
         } catch (PDOException $e) {

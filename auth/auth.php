@@ -19,8 +19,9 @@ class Auth
             $_SESSION['id_usuario'] = $usuario['id_usuario'];
             $_SESSION['nome'] = $usuario['nome'];
             $_SESSION['email'] = $usuario['email'];
+            $_SESSION['telefone'] = $usuario['telefone'];
             $_SESSION['tipo_usuario'] = $usuario['tipo_usuario'];
-            $_SESSION['foto_usuario'] = $usuario['foto_usuario'];
+            $_SESSION['foto_usuario'] = $usuario['foto'];
 
             header('Location: /slz_alerta/index.php');
             exit();
