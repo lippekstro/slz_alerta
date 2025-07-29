@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/templates/_header.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/slz_alerta/models/tipo_denuncia.php';
 
 if (!isset($_SESSION['id_usuario'])) {
-    $_SESSION['aviso'] = "Você deve estar logado para criar uma denúncia";
+     $_SESSION['aviso'] = "Você deve estar logado para criar uma denúncia";
     header('Location: /slz_alerta/views/login.php');
 }
 

@@ -16,7 +16,7 @@ class Usuario
     private const SELECT_BY_ID = 'SELECT * FROM usuarios WHERE id_usuario = :id';
     private const INSERT_USER = 'INSERT INTO usuarios (nome, email, telefone, senha, cpf, foto) VALUES (:nome, :email, :telefone, :senha, :cpf, :foto)';
     private const SELECT_ALL = 'SELECT * FROM usuarios';
-    private const UPDATE_USER = 'UPDATE usuarios SET nome_usuario = :nome, email = :email, telefone = :telefone, foto = :foto WHERE id_usuario = :id';
+    private const UPDATE_USER = 'UPDATE usuarios SET nome = :nome, email = :email, telefone = :telefone, cpf = :cpf WHERE id_usuario = :id';
     private const UPDATE_PASSWORD = 'UPDATE usuarios SET senha = :senha WHERE id_usuario = :id';
     private const DELETE_USER = 'DELETE FROM usuarios WHERE id_usuario = :id';
     private const UPDATE_IMAGE = 'UPDATE usuarios SET foto = :foto WHERE id_usuario = :id';
@@ -109,7 +109,7 @@ class Usuario
             $resultado = $stmt->fetch();
 
             if ($resultado) {
-                $this->nome = $resultado['nome_usuario'];
+                $this->nome = $resultado['nome'];
                 $this->senha = $resultado['senha'];
                 $this->telefone = $resultado['telefone'];
                 $this->tipo_usuario = $resultado['tipo_usuario'];
@@ -174,7 +174,7 @@ class Usuario
             $stmt->bindValue(':nome', $this->nome);
             $stmt->bindValue(':email', $this->email);
             $stmt->bindValue(':telefone', $this->telefone);
-            $stmt->bindValue(':foto', $this->foto_usuario);
+            $stmt->bindValue(':cpf', $this->cpf);
             $stmt->bindValue(':id', $this->id_usuario);
             $stmt->execute();
         } catch (PDOException $e) {
